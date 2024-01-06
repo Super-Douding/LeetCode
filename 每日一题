@@ -1,0 +1,33 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    int getNum(int m, int n){
+        int temp = min(m, n);
+        while(temp != 1){
+            if(m % temp == 0 && n % temp == 0){
+                break;
+            }else{
+                temp --;
+            }
+        }
+        return temp;
+    }
+    ListNode* insertGreatestCommonDivisors(ListNode* head) {
+        ListNode* node = head;
+        while(node -> next){
+            node -> next = new ListNode(getNum(node -> val, node -> next -> val), node -> next);
+            //求取两个数的最大公约数有一个现成的函数
+            node = node -> next ->next;
+        }
+        return head;
+    }
+};
